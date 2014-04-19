@@ -1,0 +1,28 @@
+.body-part{
+  display: inline-block;
+  position: relative;
+}
+#face{
+  /*background: transparent url('../imgs/face_devil.png');*/
+  background-size: cover; 
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+}
+#face-eyedx{
+  /*background: transparent url('../imgs/eye._dx.png');*/
+  background-size: cover; 
+  width: 20%;
+  height: 20%;
+  top: 0%;
+  left: 0%;
+}
+#face-eyedx-pupilla{
+  /*background: transparent url('../imgs/pupilla.png');*/
+  background-size: cover; 
+  width: 50%;
+  height: 50%;
+  top: 0%;
+  left: 0%;
+}

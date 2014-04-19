@@ -1,0 +1,92 @@
+{
+  "name": "index",
+  "pouex": {
+    "name": "Pippo", 
+    "body": {
+      "face": {
+            "imageUrl": "imgs/face_devil.png",
+            "default": "imgs/face_devil.png",
+            "subparts": { 
+              "eyedx": {
+                    "imageUrl": "imgs/eye._dx.png",
+                    "default": "imgs/eye._dx.png",
+                    "subparts": { 
+                      "pupilla": {
+                            "imageUrl": "imgs/pupilla.png",
+                            "default": "imgs/pupilla.png",
+                            "subparts": { 
+                              
+                            }
+                          }
+                    }
+                  }
+            }
+          }
+    },
+	"features": {
+      "Weight": {
+  	    "value": 20.0,
+	    "default": 20.0,
+  	    "minimum": 5.0,
+	    "maximum": 100.0,
+	    "type": "POSITIVE"
+      }
+      ,
+      "Happiness": {
+  	    "value": 3.0,
+	    "default": 3.0,
+  	    "minimum": 0.0,
+	    "maximum": 10.0,
+	    "type": "POSITIVE"
+      }
+    },
+    "states": {
+      "Happy": {
+        "active": false
+      }
+      ,
+      "TheEnd": {
+        "active": false
+      }
+    },
+    "actions": {
+      "Play": [ 
+        {
+      	  "feature": "Weight",
+          "operation": "0.001",
+          "operator": "-"
+        }
+        ,
+        {
+      	  "feature": "Happiness",
+          "operation": "1.0",
+          "operator": "+"
+        }
+      ]
+      ,
+      "Eat": [ 
+        {
+      	  "feature": "Weight",
+          "operation": "10.0",
+          "operator": "+"
+        }
+      ]
+      ,
+      "Tired": [ 
+        {
+      	  "feature": "Happiness",
+          "operation": "1.1",
+          "operator": "*"
+        }
+      ]
+      ,
+      "the_weight_increases": [ 
+        {
+      	  "feature": "Weight",
+          "operation": "1.0",
+          "operator": "+"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" ng-app="PouexApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pouex Game</title>
+  <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="libs/angularjs/angular.js"></script>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <link href="css/style.css" rel="stylesheet">
+
+  <link href="css/index.css" rel="stylesheet">
+  <script src="js/indexController.js"></script>
+</head>
+<body ng-controller="CtrlMenu">
+
+  
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#" onclick="javascript:$('#modal-set-name').modal();">{{game.pouex.name}}</a>
+       </div>
+       <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><a href="#">Home</a></li>
+             <li><a href="#Play" ng-click="executeAction('Play')">Play</a></li>  <li><a href="#Eat" ng-click="executeAction('Eat')">Eat</a></li>
+           <li><a href="#new-game" onclick="javascript:document.location.reload()">New Game</a></li>
+         </ul>
+       </div><!--/.nav-collapse -->
+     </div>
+   </div>
+
+  <div class="container main" role="main">
+    <div class="jumbotron row">
+      <div class="game-panel col-md-4"></div>
+
+      <div class="game-panel col-md-4">
+        <div class="game-panel-body">
+            <!--<img ng-src="{{game.pouex.body.face.imageUrl}}">-->
+            <div id="face" class="body-part" style="background-image: url({{game.pouex.body.face.imageUrl}})">
+                <!--<img ng-src="{{game.pouex.body.face.eyedx.imageUrl}}">-->
+                <div id="face-eyedx" class="body-part" style="background-image: url({{game.pouex.body.face.eyedx.imageUrl}})">
+                    <!--<img ng-src="{{game.pouex.body.face.eyedx.pupilla.imageUrl}}">-->
+                    <div id="face-eyedx-pupilla" class="body-part" style="background-image: url({{game.pouex.body.face.eyedx.pupilla.imageUrl}})">
+                      
+                    </div>  
+                </div>  
+            </div>  
+        </div><!-- /.game-content-body -->
+      </div><!-- /.game-content -->
+
+      <div class="panel panel-default game-dashboard col-md-4">
+        <div class="panel-body">
+            Weight: {{game.pouex.features['Weight'].value}} kg<br>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+                aria-valuemin="0" aria-valuemax="100" style="width: {{getFeaturePercValue('Weight')}}%;">
+                  {{getFeaturePercValue('Weight') |number:2}}%
+              </div>
+            </div><!-- /.progress -->
+            Happiness: {{game.pouex.features['Happiness'].value}} hp<br>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+                aria-valuemin="0" aria-valuemax="100" style="width: {{getFeaturePercValue('Happiness')}}%;">
+                  {{getFeaturePercValue('Happiness') |number:2}}%
+              </div>
+            </div><!-- /.progress -->
+          
+            <div ng-show="game.pouex.states[ 'Happy'].active">
+              <span class="glyphicon glyphicon-ok"></span> Happy
+            </div>
+            <div ng-show="game.pouex.states[ 'TheEnd'].active">
+              <span class="glyphicon glyphicon-ok"></span> TheEnd
+            </div>
+          
+        </div>
+      </div><!-- /.pouex-info -->
+
+    </div><!-- /.jumbotron -->
+  </div><!-- /.main -->
+
+  <!-- modal -->
+
+  <div class="modal fade" id="state-dead" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">The End</div>
+        <div class="modal-body">
+          Sorry, {{game.pouex.name}} was died...
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-lg new-game" onclick="javascript:document.location.reload()">New Game</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.state-dead -->
+
+  <div class="modal fade" id="modal-set-name" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">Get a new name for Pouex</div>
+        <div class="modal-body">
+          <input ng-model="game.pouex.name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.modal-set-name -->
+
+  <script src="libs/jquery/jquery.min.js"></script>
+  <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
