@@ -2,6 +2,11 @@
   display: inline-block;
   position: relative;
 }
+.main{ margin-top: 5em; }
+.main .jumbotron{ padding-top: 1em; }
+/*.game-panel > div{ width: 50%; margin: 0px auto;  }*/
+.game-panel img{ width: 100%; }
+.game-panel-body{ height: 250px; }
 #face{
   /*background: transparent url('../imgs/face_devil.png');*/
   background-size: cover; 
@@ -10,14 +15,24 @@
   top: 0%;
   left: 0%;
 }
+.main{ margin-top: 5em; }
+.main .jumbotron{ padding-top: 1em; }
+/*.game-panel > div{ width: 50%; margin: 0px auto;  }*/
+.game-panel img{ width: 100%; }
+.game-panel-body{ height: 250px; }
 #face-eyedx{
-  /*background: transparent url('../imgs/eye._dx.png');*/
+  /*background: transparent url('../imgs/eye_dx.png');*/
   background-size: cover; 
   width: 20%;
   height: 20%;
   top: 0%;
   left: 0%;
 }
+.main{ margin-top: 5em; }
+.main .jumbotron{ padding-top: 1em; }
+/*.game-panel > div{ width: 50%; margin: 0px auto;  }*/
+.game-panel img{ width: 100%; }
+.game-panel-body{ height: 250px; }
 #face-eyedx-pupilla{
   /*background: transparent url('../imgs/pupilla.png');*/
   background-size: cover; 

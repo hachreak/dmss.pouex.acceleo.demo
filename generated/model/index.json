@@ -8,8 +8,8 @@
             "default": "imgs/face_devil.png",
             "subparts": { 
               "eyedx": {
-                    "imageUrl": "imgs/eye._dx.png",
-                    "default": "imgs/eye._dx.png",
+                    "imageUrl": "imgs/eye_dx.png",
+                    "default": "imgs/eye_dx.png",
                     "subparts": { 
                       "pupilla": {
                             "imageUrl": "imgs/pupilla.png",
