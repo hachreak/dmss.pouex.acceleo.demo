@@ -12,7 +12,7 @@
       <influences
           feature="//@pouex/@features.0"
           operator="SUBTRACTION"
-          value="0.001"/>
+          value="10.0"/>
       <influences
           feature="//@pouex/@features.1"
           value="1.0"/>
@@ -24,30 +24,13 @@
           feature="//@pouex/@features.0"
           value="10.0"/>
     </actions>
-    <actions
-        xsi:type="pouexmm:RepeatedAction"
-        name="Tired"
-        eachMillisec="2000.0">
-      <influences
-          feature="//@pouex/@features.1"
-          operator="MULTIPLICATION"
-          value="1.1"/>
-    </actions>
-    <actions
-        xsi:type="pouexmm:RepeatedAction"
-        name="the_weight_increases"
-        eachMillisec="1500.0">
-      <influences
-          feature="//@pouex/@features.0"
-          value="1.0"/>
-    </actions>
     <states
         name="Happy">
       <activationConditions
           xsi:type="pouexmm:MaxThresholdActivationCondition"
           name="Pouex is happy"
           threshold="7.0"
-          features="//@pouex/@features.1"/>
+          feature="//@pouex/@features.1"/>
       <bodyAlterations
           bodyPart="//@pouex/@bodyparts.0"
           image="face_happy.png"/>
@@ -59,15 +42,45 @@
           xsi:type="pouexmm:MaxThresholdActivationCondition"
           name="Pouex died for obesity"
           threshold="80.0"
-          features="//@pouex/@features.0"/>
+          feature="//@pouex/@features.0"/>
       <activationConditions
           xsi:type="pouexmm:MinThresholdActivationCondition"
           name="if is not happy, died"
           threshold="0.1"
-          features="//@pouex/@features.1"/>
+          feature="//@pouex/@features.1"/>
       <bodyAlterations
           bodyPart="//@pouex/@bodyparts.0"
           image="face_dead.png"/>
+    </states>
+    <states
+        name="Overweight">
+      <activationConditions
+          xsi:type="pouexmm:AndLogicActivationCondition"
+          name="if_weight_and_not_happy">
+        <terms
+            xsi:type="pouexmm:MaxThresholdActivationCondition"
+            name="to much weight"
+            threshold="80.0"
+            feature="//@pouex/@features.0"/>
+        <terms
+            xsi:type="pouexmm:StateActivationCondition"
+            name="not happy"
+            state="//@pouex/@states.0"/>
+        <terms
+            xsi:type="pouexmm:OrLogicActivationCondition"
+            name="or test">
+          <terms
+              xsi:type="pouexmm:MinThresholdActivationCondition"
+              name="if not much happy"
+              threshold="7.0"
+              feature="//@pouex/@features.1"/>
+          <terms
+              xsi:type="pouexmm:MaxThresholdActivationCondition"
+              name="if not less happy"
+              threshold="2.0"
+              feature="//@pouex/@features.1"/>
+        </terms>
+      </activationConditions>
     </states>
     <features
         xsi:type="pouexmm:Physic"

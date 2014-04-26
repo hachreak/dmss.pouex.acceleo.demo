@@ -48,12 +48,16 @@
       "TheEnd": {
         "active": false
       }
+      ,
+      "Overweight": {
+        "active": false
+      }
     },
     "actions": {
       "Play": [ 
         {
       	  "feature": "Weight",
-          "operation": "0.001",
+          "operation": "10.0",
           "operator": "-"
         }
         ,
@@ -68,22 +72,6 @@
         {
       	  "feature": "Weight",
           "operation": "10.0",
-          "operator": "+"
-        }
-      ]
-      ,
-      "Tired": [ 
-        {
-      	  "feature": "Happiness",
-          "operation": "1.1",
-          "operator": "*"
-        }
-      ]
-      ,
-      "the_weight_increases": [ 
-        {
-      	  "feature": "Weight",
-          "operation": "1.0",
           "operator": "+"
         }
       ]

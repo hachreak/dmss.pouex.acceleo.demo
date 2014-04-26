@@ -6,17 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pouex Game</title>
   <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="libs/angularjs/angular.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <link href="css/style.css" rel="stylesheet">
 
   <link href="css/index.css" rel="stylesheet">
-  <script src="js/indexController.js"></script>
 </head>
 <body ng-controller="CtrlMenu">
 
@@ -30,13 +27,13 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>
-         <a class="navbar-brand" href="#" onclick="javascript:$('#modal-set-name').modal();">{{game.pouex.name}}</a>
+         <a class="navbar-brand" href="#" onclick="javascript:$('#modal-set-name').modal();">{{$storage.game.pouex.name}}</a>
        </div>
        <div class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
            <li class="active"><a href="#">Home</a></li>
              <li><a href="#Play" ng-click="executeAction('Play')">Play</a></li>  <li><a href="#Eat" ng-click="executeAction('Eat')">Eat</a></li>
-           <li><a href="#new-game" onclick="javascript:document.location.reload()">New Game</a></li>
+           <li><a href="#new-game" ng-click="PouexNewGame()">New Game</a></li>
          </ul>
        </div><!--/.nav-collapse -->
      </div>
@@ -48,12 +45,12 @@
 
       <div class="game-panel col-md-4">
         <div class="game-panel-body">
-            <!--<img ng-src="{{game.pouex.body.face.imageUrl}}">-->
-            <div id="face" class="body-part" style="background-image: url({{game.pouex.body.face.imageUrl}})">
-                <!--<img ng-src="{{game.pouex.body.face.eyedx.imageUrl}}">-->
-                <div id="face-eyedx" class="body-part" style="background-image: url({{game.pouex.body.face.eyedx.imageUrl}})">
-                    <!--<img ng-src="{{game.pouex.body.face.eyedx.pupilla.imageUrl}}">-->
-                    <div id="face-eyedx-pupilla" class="body-part" style="background-image: url({{game.pouex.body.face.eyedx.pupilla.imageUrl}})">
+            <!--<img ng-src="{{$storage.game.pouex.body.face.imageUrl}}">-->
+            <div id="face" class="body-part" style="background-image: url({{$storage.game.pouex.body.face.imageUrl}})">
+                <!--<img ng-src="{{$storage.game.pouex.body.face.eyedx.imageUrl}}">-->
+                <div id="face-eyedx" class="body-part" style="background-image: url({{$storage.game.pouex.body.face.eyedx.imageUrl}})">
+                    <!--<img ng-src="{{$storage.game.pouex.body.face.eyedx.pupilla.imageUrl}}">-->
+                    <div id="face-eyedx-pupilla" class="body-part" style="background-image: url({{$storage.game.pouex.body.face.eyedx.pupilla.imageUrl}})">
                       
                     </div>  
                 </div>  
@@ -63,14 +60,14 @@
 
       <div class="panel panel-default game-dashboard col-md-4">
         <div class="panel-body">
-            Weight: {{game.pouex.features['Weight'].value}} kg<br>
+            Weight: {{$storage.game.pouex.features['Weight'].value}} kg<br>
             <div class="progress">
               <div class="progress-bar" role="progressbar" aria-valuenow="60" 
                 aria-valuemin="0" aria-valuemax="100" style="width: {{getFeaturePercValue('Weight')}}%;">
                   {{getFeaturePercValue('Weight') |number:2}}%
               </div>
             </div><!-- /.progress -->
-            Happiness: {{game.pouex.features['Happiness'].value}} hp<br>
+            Happiness: {{$storage.game.pouex.features['Happiness'].value}} hp<br>
             <div class="progress">
               <div class="progress-bar" role="progressbar" aria-valuenow="60" 
                 aria-valuemin="0" aria-valuemax="100" style="width: {{getFeaturePercValue('Happiness')}}%;">
@@ -78,11 +75,14 @@
               </div>
             </div><!-- /.progress -->
           
-            <div ng-show="game.pouex.states[ 'Happy'].active">
+            <div ng-show="$storage.game.pouex.states[ 'Happy'].active">
               <span class="glyphicon glyphicon-ok"></span> Happy
             </div>
-            <div ng-show="game.pouex.states[ 'TheEnd'].active">
+            <div ng-show="$storage.game.pouex.states[ 'TheEnd'].active">
               <span class="glyphicon glyphicon-ok"></span> TheEnd
+            </div>
+            <div ng-show="$storage.game.pouex.states[ 'Overweight'].active">
+              <span class="glyphicon glyphicon-ok"></span> Overweight
             </div>
           
         </div>
@@ -98,7 +98,7 @@
       <div class="modal-content">
         <div class="modal-header">The End</div>
         <div class="modal-body">
-          Sorry, {{game.pouex.name}} was died...
+          Sorry, {{$storage.game.pouex.name}} was died...
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary btn-lg new-game" onclick="javascript:document.location.reload()">New Game</button>
@@ -112,7 +112,7 @@
       <div class="modal-content">
         <div class="modal-header">Get a new name for Pouex</div>
         <div class="modal-body">
-          <input ng-model="game.pouex.name">
+          <input ng-model="$storage.game.pouex.name">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -123,5 +123,8 @@
 
   <script src="libs/jquery/jquery.min.js"></script>
   <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+  <script src="libs/angularjs/angular.js"></script>
+  <script src="libs/angular-ngStorage/ngStorage.js"></script>
+  <script src="js/indexController.js"></script>
 </body>
 </html>
