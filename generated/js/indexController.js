@@ -7,7 +7,6 @@ PouexApp.factory('PouexDataService', [ '$http', '$localStorage', '$q', function(
 
         $http({method:"GET", url:"model/index.json"}).success(function(data){
             // init local storage
-    		//$storage = {game: data};
             $storage = $localStorage.$default({
               game: data
             });
@@ -32,7 +31,9 @@ PouexApp.controller('CtrlMenu', [ '$scope', '$http', 'PouexDataService', functio
 
   myDataPromise.then(function(result){
     $scope.$storage = result;
-    //$scope.backup = JSON.parse(JSON.stringify(result.game));
+
+    // if not set, set birthday
+    $scope.$storage.game.pouex.birthday = $scope.$storage.game.pouex.birthday || new Date();
 
       // state's activation
       $scope.$watchCollection("[ $storage.game.pouex.features['Happiness'].value ]", function(newValues, oldValues){

@@ -60,6 +60,7 @@
 
       <div class="panel panel-default game-dashboard col-md-4">
         <div class="panel-body">
+          Birthday of {{$storage.game.pouex.name}}: {{$storage.game.pouex.birthday | date:'dd-MM-yyyy'}}<br>
             Weight: {{$storage.game.pouex.features['Weight'].value}} kg<br>
             <div class="progress">
               <div class="progress-bar" role="progressbar" aria-valuenow="60" 
