@@ -4,25 +4,24 @@
     "name": "Pippo",
     "birthday": "", 
     "body": {
-      "face": {
-            "imageUrl": "imgs/face_devil.png",
-            "default": "imgs/face_devil.png",
-            "subparts": { 
-              "eyedx": {
-                    "imageUrl": "imgs/eye_dx.png",
-                    "default": "imgs/eye_dx.png",
-                    "subparts": { 
-                      "pupilla": {
-                            "imageUrl": "imgs/pupilla.png",
-                            "default": "imgs/pupilla.png",
-                            "subparts": { 
-                              
-                            }
-                          }
-                    }
-                  }
-            }
-          }
+      	"face": {
+      	  "imageUrl": "imgs/face_devil.png",
+      	  "default": "imgs/face_devil.png",
+      	  "subparts": {
+      	    "eyedx": {
+      	      "imageUrl": "imgs/eye_dx.png",
+      	      "default": "imgs/eye_dx.png",
+      	      "subparts": {
+      	        "pupilla": {
+      	          "imageUrl": "imgs/pupilla.png",
+      	          "default": "imgs/pupilla.png",
+      	          "subparts": {
+      	          }
+      	        }
+      	      }
+      	    }
+      	  }
+      	}
     },
 	"features": {
       "Weight": {

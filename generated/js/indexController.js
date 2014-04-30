@@ -38,17 +38,26 @@ PouexApp.controller('CtrlMenu', [ '$scope', '$http', 'PouexDataService', functio
       // state's activation
       $scope.$watchCollection("[ $storage.game.pouex.features['Happiness'].value ]", function(newValues, oldValues){
         if(typeof $scope.$storage.game != "undefined"){
-          if(newValues[ 0 ] > 7.0){
-                // state animation 
-                $scope.$storage.game.pouex.body.face.imageUrl = 'imgs/face_happy.png';
-              // set in model the activation
-              $scope.$storage.game.pouex.states.Happy.active = true;
-            
+          var i = 0;
+          if(newValues[ i++ ] > 7.0){
+            // set in model the activation
+            $scope.$storage.game.pouex.states.Happy.active = true;
           }else{
-               // state animation 
-               $scope.$storage.game.pouex.body.face.imageUrl = $scope.$storage.game.pouex.body.face.default;
-             // set in model the activation
-             $scope.$storage.game.pouex.states.Happy.active = false;
+           // set in model the activation
+           $scope.$storage.game.pouex.states.Happy.active = false;
+          }
+        }
+      });
+
+      $scope.$watch("$storage.game.pouex.states['Happy'].active", function(newValue, oldValue){
+        if(typeof $scope.$storage.game != "undefined"){
+          if(newValue){
+            	$scope.$storage.game.pouex.body.face.default = $scope.$storage.game.pouex.body.face.imageUrl;
+              // state animation 
+              $scope.$storage.game.pouex.body.face.imageUrl = 'imgs/face_happy.png'; 
+          }else{
+              // restore animation 
+              $scope.$storage.game.pouex.body.face.imageUrl = $scope.$storage.game.pouex.body.face.default;
           }
         }
       });
@@ -57,17 +66,26 @@ PouexApp.controller('CtrlMenu', [ '$scope', '$http', 'PouexDataService', functio
       // state's activation
       $scope.$watchCollection("[ $storage.game.pouex.features['Weight'].value, $storage.game.pouex.features['Happiness'].value ]", function(newValues, oldValues){
         if(typeof $scope.$storage.game != "undefined"){
-          if(newValues[ 0 ] > 80.0 || newValues[ 1 ] < 0.1){
-                // state animation 
-                $scope.$storage.game.pouex.body.face.imageUrl = 'imgs/face_dead.png';
-              // set in model the activation
-              $scope.$storage.game.pouex.states.TheEnd.active = true;
-            
+          var i = 0;
+          if(newValues[ i++ ] > 80.0 || newValues[ i++ ] < 0.1){
+            // set in model the activation
+            $scope.$storage.game.pouex.states.TheEnd.active = true;
           }else{
-               // state animation 
-               $scope.$storage.game.pouex.body.face.imageUrl = $scope.$storage.game.pouex.body.face.default;
-             // set in model the activation
-             $scope.$storage.game.pouex.states.TheEnd.active = false;
+           // set in model the activation
+           $scope.$storage.game.pouex.states.TheEnd.active = false;
+          }
+        }
+      });
+
+      $scope.$watch("$storage.game.pouex.states['TheEnd'].active", function(newValue, oldValue){
+        if(typeof $scope.$storage.game != "undefined"){
+          if(newValue){
+            	$scope.$storage.game.pouex.body.face.default = $scope.$storage.game.pouex.body.face.imageUrl;
+              // state animation 
+              $scope.$storage.game.pouex.body.face.imageUrl = 'imgs/face_dead.png'; 
+          }else{
+              // restore animation 
+              $scope.$storage.game.pouex.body.face.imageUrl = $scope.$storage.game.pouex.body.face.default;
           }
         }
       });
@@ -86,13 +104,21 @@ PouexApp.controller('CtrlMenu', [ '$scope', '$http', 'PouexDataService', functio
       // state's activation
       $scope.$watchCollection("[ $storage.game.pouex.features['Weight'].value, $storage.game.pouex.states['Happy'].active, $storage.game.pouex.features['Happiness'].value, $storage.game.pouex.features['Happiness'].value ]", function(newValues, oldValues){
         if(typeof $scope.$storage.game != "undefined"){
-          if(( newValues[ 0 ] > 80.0 && !newValues[ 1 ] && ( newValues[ 2 ] < 7.0 || newValues[ 3 ] > 2.0 ) )){
-              // set in model the activation
-              $scope.$storage.game.pouex.states.Overweight.active = true;
-            
+          var i = 0;
+          if(( newValues[ i++ ] > 80.0 && !newValues[ i++ ] && ( newValues[ i++ ] < 7.0 || newValues[ i++ ] > 2.0 ) )){
+            // set in model the activation
+            $scope.$storage.game.pouex.states.Overweight.active = true;
           }else{
-             // set in model the activation
-             $scope.$storage.game.pouex.states.Overweight.active = false;
+           // set in model the activation
+           $scope.$storage.game.pouex.states.Overweight.active = false;
+          }
+        }
+      });
+
+      $scope.$watch("$storage.game.pouex.states['Overweight'].active", function(newValue, oldValue){
+        if(typeof $scope.$storage.game != "undefined"){
+          if(newValue){
+          }else{
           }
         }
       });
@@ -101,20 +127,27 @@ PouexApp.controller('CtrlMenu', [ '$scope', '$http', 'PouexDataService', functio
 
     // execute a action: manipupate feature value
     $scope.executeAction = function(name){
-      angular.forEach($scope.$storage.game.pouex.actions[ name ], function(value, key){
-        var operation = value.operation;
-        var operator = value.operator; 
-        var fname = value.feature;
-        var fvalue = $scope.$storage.game.pouex.features[ fname ].value;
-        var fmax = $scope.$storage.game.pouex.features[ fname ].maximum;
-        var fmin = $scope.$storage.game.pouex.features[ fname ].minimum;
+      if(typeof $scope.$storage.game != "undefined"){
+        angular.forEach($scope.$storage.game.pouex.actions[ name ], function(value, key){
+          var operation = value.operation;
+          var operator = value.operator; 
+          var fname = value.feature;
+          var fvalue = $scope.$storage.game.pouex.features[ fname ].value;
+          var fmax = $scope.$storage.game.pouex.features[ fname ].maximum;
+          var fmin = $scope.$storage.game.pouex.features[ fname ].minimum;
 
-        var ret = eval(fvalue + operator + operation);
+          var ret = eval(fvalue + operator + operation);
 
-        if(ret <= fmax && ret >= fmin){
+          if(ret > fmax){
+            ret = fmax;
+          }
+          if(ret < fmin){
+            ret = fmin;
+          }
+
           $scope.$storage.game.pouex.features[ fname ].value = ret;
-        }
-      });
+        });
+      }
     };
 
     // implement a repeated event
